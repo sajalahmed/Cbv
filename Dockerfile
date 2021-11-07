@@ -8,6 +8,6 @@ RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev libmagic jpeg-dev zlib-dev
 
 COPY requirements.txt /cbv/
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /cbv/
