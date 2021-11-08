@@ -16,7 +16,7 @@ services:
       context: .
     env_file:
       - ./.env
-    command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: ./entrypoint.app.sh
     volumes:
       - .:/cbv
     ports:
@@ -28,7 +28,7 @@ services:
     restart: always
     build:
       context: .
-    command: celery -A Core worker -l info
+    entrypoint: ./entrypoint.celery.worker.sh
     volumes:
       - .:/cbv
     depends_on:
