@@ -3,6 +3,8 @@ version: '3'
 services:
   redis:
     image: redis:alpine
+    ports:
+      - "6379:6379"    
   db:
     image: postgres:10.12-alpine
     ports:
@@ -31,6 +33,9 @@ services:
     build:
       context: .
     entrypoint: ./entrypoint.celery.worker.sh
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND:-redis://redis:6379}
     volumes:
       - .:/cbv
     depends_on:
