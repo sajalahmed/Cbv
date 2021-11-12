@@ -19,5 +19,7 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Core.cbv.urls'))
+    path('', include('Core.cbv.urls')),
+    path('', include('Core.users.urls')),
+    path('', include('Core.posts.urls'))
 ]

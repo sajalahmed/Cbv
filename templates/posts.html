@@ -1,0 +1,16 @@
+<html>
+
+<head>
+
+</head>
+<body>
+    <h1>this is Post Section</h1>
+     <p>{{ data }}</p>
+     {% for category in categories %}
+        <ul>
+            <li>{{  category.name }}</li>
+            <li>{{ category.description }}</li>
+        </ul>
+     {% endfor %}
+</body>
+</html>
