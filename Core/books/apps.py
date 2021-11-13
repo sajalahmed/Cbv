@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CbvConfig(AppConfig):
+class BooksConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Core.cbv'
+    name = 'Core.books'

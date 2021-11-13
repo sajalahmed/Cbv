@@ -41,9 +41,9 @@ INSTALLED_APPS = [
 
 # system apps
 INSTALLED_APPS += [
-    'Core.cbv',
     'Core.users',
     'Core.posts',
+    'Core.books'
 ]
 
 
