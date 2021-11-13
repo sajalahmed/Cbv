@@ -6,11 +6,20 @@
 <body>
     <h1>this is Post Section</h1>
      <p>{{ data }}</p>
+    <!-------template view------>
+    <p>{{ category.name }}</p>
+    <p>{{ category.description }}</p>
+
+    <a href="{% url 'posts:go-to' pk=category.id %}">Verify</a>
+
+     <!-----------list view---------------->
+     {% comment  %}
      {% for category in categories %}
         <ul>
             <li>{{  category.name }}</li>
             <li>{{ category.description }}</li>
         </ul>
      {% endfor %}
+     {% endcomment %}
 </body>
 </html>
