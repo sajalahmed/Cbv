@@ -106,8 +106,9 @@ DATABASES = {
 # by default, celery doesn't have any timeout on our redis connections, this fixes that
 BROKER_TRANSPORT_OPTIONS = {"socket_timeout": 5}
 
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = config("CELERY_BROKER_URL", default="redis://redis:6379")
+CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND", default="redis://redis:6379")
+
 
 # by default, celery doesn't have any timeout on our redis connections, this fixes that
 CELERY_BROKER_TRANSPORT_OPTIONS = {"socket_timeout": 5}
