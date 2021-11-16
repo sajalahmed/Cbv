@@ -3,3 +3,6 @@ psycopg2-binary>=2.8
 python-decouple>=3.3
 celery==4.4.1
 redis==3.4.1
+django-redis==4.11.0
+sorl-thumbnail==12.7.0
+Pillow==8.4.0

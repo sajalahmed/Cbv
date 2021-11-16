@@ -6,6 +6,12 @@ from django.utils import timezone
 
 from .models import Book
 
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+from django_redis import get_redis_connection
+from django.utils.decorators import method_decorator
+
+
 class IndexView(TemplateView):
     template_name = "book/home.html"
     def get_context_data(self, **kwargs):
@@ -27,17 +33,21 @@ class BookDetailsView(DetailView):
         context['time'] = timezone.now()
         return context
 
-
+#@method_decorator(cache_page(60 * 5), name='dispatch')
 class BookListView(ListView):
     model = Book
     template_name = "book/list.html"
-    context_object_name = "books"     #default object_list
-    paginate_by = 4
-    #queryset = Book.objects.all()[:2]
-    #or method
-    def get_queryset(self):
-        return Book.objects.all()[:2]
+    context_object_name = "books"
+    paginate_by = 10
 
+    """
+    def get_queryset(self): #method to change the list of records returned
+        return Book.objects.all()
+    """
+    def get_context_data(self, **kwargs):  #in order to pass additional context variables
+        context = super().get_context_data(**kwargs)
+        context['book'] = Book.objects.all()[:2]
+        return context
 
 class BookListViewExtra(ListView):
     model = Book
