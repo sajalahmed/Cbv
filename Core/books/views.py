@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
 from django.utils import timezone
 
 from .models import Book
+from .forms import AddForm
 
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
@@ -19,6 +21,16 @@ class IndexView(TemplateView):
         context['books'] = Book.objects.all()
         return context
 
+
+class AddBookView(FormView):
+    template_name = "book/book_add.html"
+    form_class = AddForm
+    success_url = '/books/'
+
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 class BookDetailsView(DetailView):
     model = Book
@@ -38,7 +50,7 @@ class BookListView(ListView):
     model = Book
     template_name = "book/list.html"
     context_object_name = "books"
-    paginate_by = 10
+    paginate_by = 5
 
     """
     def get_queryset(self): #method to change the list of records returned
@@ -46,7 +58,7 @@ class BookListView(ListView):
     """
     def get_context_data(self, **kwargs):  #in order to pass additional context variables
         context = super().get_context_data(**kwargs)
-        context['book'] = Book.objects.all()[:2]
+        #context['books'] = Book.objects.all()[:2]
         return context
 
 class BookListViewExtra(ListView):
