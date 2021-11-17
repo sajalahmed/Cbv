@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from django.utils import timezone
 
 from .models import Book
@@ -21,7 +21,8 @@ class IndexView(TemplateView):
         context['books'] = Book.objects.all()
         return context
 
-
+#FormView
+"""
 class AddBookView(FormView):
     template_name = "book/book_add.html"
     form_class = AddForm
@@ -31,6 +32,22 @@ class AddBookView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+"""
+#Createview , we don't need to form validate in create view.
+class AddBookView(CreateView):
+    model = Book
+    template_name = "book/book_add.html"
+    form_class = AddForm
+    success_url = '/books/'
+
+
+    def get_initial(self, *args, **kwargs):
+        initial = super().get_initial(**kwargs)
+        initial['title'] = 'enter Title'
+        return initial
+
+
 
 class BookDetailsView(DetailView):
     model = Book

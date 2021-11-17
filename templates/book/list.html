@@ -25,7 +25,7 @@
                 </a>
                 {% if book.coverpage %}
                     {% thumbnail book.coverpage "800x800" crop="center" as im %}
-                        <img src="{{ im.url }}"/>
+                        <img src="{{ im.url }}" height="200px"/>
                     {% endthumbnail %}
                 {% endif %}
             </div>
