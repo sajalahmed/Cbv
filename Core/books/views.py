@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView, CreateView, UpdateView
 from django.utils import timezone
 
 from .models import Book
@@ -48,6 +48,12 @@ class AddBookView(CreateView):
         return initial
 
 
+
+class EditBookView(UpdateView):
+    model = Book
+    template_name = "book/book_edit.html"
+    form_class = AddForm
+    success_url = '/books/'
 
 class BookDetailsView(DetailView):
     model = Book
