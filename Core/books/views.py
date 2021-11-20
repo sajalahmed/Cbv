@@ -12,6 +12,7 @@ from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django_redis import get_redis_connection
 from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class IndexView(TemplateView):
@@ -49,7 +50,8 @@ class AddBookView(CreateView):
 
 
 
-class EditBookView(UpdateView):
+class EditBookView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'books.change_books' # ('books.change_books', 'books.add_books')
     model = Book
     template_name = "book/book_edit.html"
     form_class = AddForm
