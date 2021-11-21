@@ -33,3 +33,8 @@ def userTest(request):
     __kwargs(**val)
 
     return render(request, 'test.html')
+
+def userTest2(request, **kwargs):
+
+    print(kwargs['item'])
+    return render(request, 'test.html')    
