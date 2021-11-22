@@ -86,6 +86,15 @@ class BookListView(ListView):
         #context['books'] = Book.objects.all()[:2]
         return context
 
+    def get_queryset(self, *args, **kwargs):
+        title = self.kwargs.get('title')
+        print(args)
+        print(title)
+        if title:
+            return Book.objects.filter(title__icontains=self.kwargs.get('title')) #__icontains for case sensitive search
+        context = super().get_queryset(*args, **kwargs)
+        return context
+
 class BookListViewExtra(ListView):
     model = Book
     template_name = "book/list.html"
@@ -93,5 +102,20 @@ class BookListViewExtra(ListView):
     paginate_by = 4
     #queryset = Book.objects.all()[:2]
     #or method
+
     def get_queryset(self, *args, **kwargs):
+        print(self.kwargs.get('title'))
         return Book.objects.filter(title__icontains=self.kwargs.get('title')) #__icontains for case sensitive search
+
+
+class TableView(TemplateView):
+    template_name = "book/datatable.html"
+
+class DataTable(ListView):
+    model = Book
+    template_name = "book/ajax.html"
+    context_object_name = "books"
+    paginate_by = 10
+
+    def get_paginate_by(self, queryset):
+        return self.request.GET.get('limit', self.paginate_by)    
