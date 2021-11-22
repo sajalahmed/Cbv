@@ -16,6 +16,9 @@
                 <li class="page-item">
                     <a class="page-link" href="?page={{ page_obj.previous_page_number }}" rel="prev" aria-label="« Previous">‹</a>
                 </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">Frist</a>
+                </li>                
             {% else %}
                 <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
                     <span class="page-link" aria-hidden="true">‹</span>
@@ -33,6 +36,9 @@
             {% endfor %}
 
             {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            </li>            
                 <li class="page-item">
                     <a class="page-link" href="?page={{ page_obj.next_page_number }}" rel="next" aria-label="Next »">›</a>
                 </li>
