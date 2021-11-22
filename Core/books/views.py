@@ -117,5 +117,19 @@ class DataTable(ListView):
     context_object_name = "books"
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        page = self.request.GET.get('page')
+        limit = self.request.GET.get('limit')
+        _sl = 1
+        _lm = 10
+        if page:
+            _sl = int(page)
+        if limit:
+            _lm = int(limit)
+        context['sl_count'] = (_sl * _lm - (_lm - 1)) - 1
+        
+        return context
+
     def get_paginate_by(self, queryset):
         return self.request.GET.get('limit', self.paginate_by)    

@@ -9,6 +9,9 @@ class Book(models.Model):
     count = models.IntegerField(null=True, default=0)
     coverpage = models.FileField(null=True, upload_to = "coverpage/")
     
+    class Meta:
+        ordering = ('-id', )
+
     def __str__(self):
         return self.title
     
