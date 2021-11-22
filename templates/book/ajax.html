@@ -1,13 +1,17 @@
 {% for book in books %}
 <tr>
     <td>{{ forloop.counter | add:sl_count  }}</td>
+    <td>{{ book.id }}</td>
     <td>{{ book.title }}</td>
     <td>Description</td>
 </tr>
 {% endfor %}
 <tr>
-    <td colspan="3">
-        <ul class="pagination" role="navigation">
+    <td colspan="4">
+        <div class="float-left">
+            Showing {{ sl_count|add:1 }} to {{ sl_count|add:books.count  }} of {{ total_books }} entries
+        </div>
+        <ul class="pagination float-right" role="navigation">
             {% if page_obj.has_previous %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ page_obj.previous_page_number }}" rel="prev" aria-label="« Previous">‹</a>
@@ -17,7 +21,6 @@
                     <span class="page-link" aria-hidden="true">‹</span>
                 </li>
             {% endif %}
-            <h1>{{ page_obj.paginator.page_size }}</h1>
             {% for i in page_obj.paginator.page_range %}
                 {% if page_obj.number == i %}
                     <li class="page-item active" aria-current="page"><span class="page-link">{{ i }}</span></li>

@@ -128,8 +128,13 @@ class DataTable(ListView):
         if limit:
             _lm = int(limit)
         context['sl_count'] = (_sl * _lm - (_lm - 1)) - 1
-        
+        context['total_books'] = Book.objects.count()
+
         return context
 
     def get_paginate_by(self, queryset):
-        return self.request.GET.get('limit', self.paginate_by)    
+        return self.request.GET.get('limit', self.paginate_by)
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('order_by', 'id')
+        return ordering

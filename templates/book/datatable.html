@@ -9,6 +9,7 @@
                     <thead>
                         <tr>
                             <th>#SL</th>
+                            <th>ID</th>
                             <th>Title</th>
                             <th>Description</th>
                         </tr>
@@ -41,13 +42,13 @@
         var base_url="{% url 'books:book_table_list' %}";
         if(page_url){
             base_url = base_url + page_url;
-           
         }
         $.ajax({
             url:base_url,
             type:"get",
             data:{
-                "limit": 6,
+                "limit": 3,
+                "order_by": "slug"
             },
             success:function(data){
                 $("#leaderTable tbody").html(data);
