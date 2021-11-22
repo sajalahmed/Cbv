@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from .models import Book
 from .forms import AddForm
-
+from django.db.models import Q
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django_redis import get_redis_connection
@@ -117,6 +117,12 @@ class DataTable(ListView):
     context_object_name = "books"
     paginate_by = 10
 
+    def get_queryset(self, *args, **kwargs):
+        search = self.request.GET.get('search', '')
+        if search:
+            return Book.objects.filter(Q(title__icontains=search) | Q(description__icontains=search)).distinct() #__icontains for case sensitive search
+        return super().get_queryset(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         page = self.request.GET.get('page')
@@ -128,7 +134,6 @@ class DataTable(ListView):
         if limit:
             _lm = int(limit)
         context['sl_count'] = (_sl * _lm - (_lm - 1)) - 1
-        context['total_books'] = Book.objects.count()
 
         return context
 

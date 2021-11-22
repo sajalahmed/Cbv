@@ -1,11 +1,39 @@
 {% extends "book/base.html" %}
 {% block content %}
 <div class="container">
-
     <div class="py-5">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="float-left">
+                    <div class="input-group">
+                        <select id="limit" class="form-control" >
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="float-right">
+                        <div class="input-group">
+                            <input type="text" name="search" placeholder="Search" id="search_key" class="form-control">
+                            <div class="input-group-btn">
+                                <button class="btn btn-info" type="submit">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
-                <table class="table table-hover table-striped table-bordered text-center" id="leaderTable" cellspacing="0" width="100%">
+                <table class="table table-hover table-striped table-bordered text-center" id="leaderTable">
                     <thead>
                         <tr>
                             <th>#SL</th>
@@ -36,9 +64,21 @@
         get_view(page_url);
         return false;
     });
+    $("#search_key").on("change",function () {
+        get_view(false);
+        return false;
+    });
+
+    $("#limit").on("change",function () {
+        get_view(false);
+        return false;
+    });
+
     get_view(false);
     function get_view(page_url)
     {
+        var limit=$("#limit").val();
+        var search_key=$("#search_key").val();
         var base_url="{% url 'books:book_table_list' %}";
         if(page_url){
             base_url = base_url + page_url;
@@ -47,8 +87,8 @@
             url:base_url,
             type:"get",
             data:{
-                "limit": 6,
-                "order_by": "slug"
+                "limit": limit,
+                "search": search_key
             },
             success:function(data){
                 $("#leaderTable tbody").html(data);
