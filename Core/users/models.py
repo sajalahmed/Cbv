@@ -1,3 +1,13 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
+class Room(models.Model):
+    name = models.CharField(max_length=30)
+    size = models.IntegerField(null=True, default=0)
+    color = models.CharField(max_length=7, default='#007bff')    
+
+class Live(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_room')
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_live')
+    date = models.DateTimeField(auto_now_add=True)
+

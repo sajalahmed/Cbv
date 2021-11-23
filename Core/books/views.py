@@ -14,6 +14,8 @@ from django_redis import get_redis_connection
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
+from django.core import serializers
+from django.http import JsonResponse
 
 class IndexView(TemplateView):
     template_name = "book/home.html"

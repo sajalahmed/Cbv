@@ -57,8 +57,7 @@
 <script>
     $("#leaderTable").on("click",'.pagination li a',function () {
         var page_url=$(this).attr("href");
-        if(page_url=="javascript:void(0)")
-        {
+        if(page_url=="javascript:void(0)"){
             return false;
         }
         get_view(page_url);
@@ -68,15 +67,14 @@
         get_view(false);
         return false;
     });
-
     $("#limit").on("change",function () {
         get_view(false);
         return false;
     });
 
     get_view(false);
-    function get_view(page_url)
-    {
+
+    function get_view(page_url){
         var limit=$("#limit").val();
         var search_key=$("#search_key").val();
         var base_url="{% url 'books:book_table_list' %}";
