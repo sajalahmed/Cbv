@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
 
 # Create your views here.
 
 class UserView(TemplateView):
     template_name = "users.html"
 
+
+class RommView(ListView):
+    pass
 
 """
 * => single asterisk means unpack a list
