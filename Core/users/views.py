@@ -10,7 +10,8 @@ class UserView(TemplateView):
 
 
 class RommView(ListView):
-    pass
+    def get_context_data():
+        
 
 """
 * => single asterisk means unpack a list
